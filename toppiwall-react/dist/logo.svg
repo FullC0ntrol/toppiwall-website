@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <path
+    d="
+      M170 95
+      H805
+      V848
+      H708
+      V189
+      H263
+      V747
+      H465
+      V848
+      H170
+      Z
+    "
+    fill="#f12912"
+    stroke="#c21d12"
+    stroke-width="3"
+    shape-rendering="geometricPrecision"
+  />
+</svg>

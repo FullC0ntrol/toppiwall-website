@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: var(--font-inter);
+  --font-space: var(--font-space-grotesk);
+  
+  --color-brand-red: #DC2626;
+  --color-brand-red-hover: #B91C1C;
+  --color-brand-white: #FFFFFF;
+}
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: initial; /* Lenis handles smooth scroll */
+  }
+
+  body {
+    background-color: var(--color-brand-white);
+    color: #09090b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-red);
+    color: white;
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
