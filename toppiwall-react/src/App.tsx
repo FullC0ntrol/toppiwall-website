@@ -8,7 +8,7 @@ import PaintingProcess from '@/components/PaintingProcess'
 import FlooringProcess from '@/components/FlooringProcess'
 import PortfolioShowcase from '@/components/PortfolioShowcase'
 import ContactSection from '@/components/ContactSection'
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, useAnimation, useInView } from 'framer-motion'
+import { motion, useScroll, useMotionValueEvent, useAnimation, useInView } from 'framer-motion'
 import { reviews } from '@/data/services'
 import { Star } from 'lucide-react'
 
