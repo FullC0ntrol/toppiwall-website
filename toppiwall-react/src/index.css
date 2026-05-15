@@ -20,6 +20,8 @@
     color: #09090b;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Space for mobile sticky bar */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   ::selection {
@@ -32,5 +34,40 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Extra padding on mobile for sticky contact bar */
+  .pb-mobile-bar {
+    padding-bottom: 72px; /* height of sticky mobile bar */
+  }
+
+  /* Scale utility for portfolio hover */
+  .group-hover\:scale-108:hover {
+    transform: scale(1.08);
+  }
+}
+
+/* ── GLOBAL SCROLL ANIMATIONS ── */
+@layer utilities {
+  .fade-in-up {
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Mobile sticky bar safe area */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .mobile-sticky-bar {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }

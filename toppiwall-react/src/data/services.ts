@@ -1,7 +1,10 @@
 import { Brush, Hammer, Layers3, Bath, Wrench, PaintBucket, DoorOpen, Paintbrush, Grip } from 'lucide-react'
 
-export const phoneNumber = '+32123456789'
-export const whatsappNumber = '32123456789'
+export const phoneNumber = '+32 492 85 87 50'
+export const whatsappNumber = '+32 492 85 87 50'
+export const emailAddress = 'walldonebelgium@gmail.com'
+export const facebookUrl = 'https://www.facebook.com/profile.php?id=61578623409138'
+export const instagramUrl = 'https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fwall_done_belgium%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBEwY1o1T3hXZHhIUmIzY3JGSXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR5Nabdns9s3bhVhZjRLQ_8P8G_3HkiA1Fhx9fGsvKNHHG-EOqcZ-VRtVSCxfQ_aem_dQQdIYSzIySgUzbDlU0HYw&h=AUDsTtMYn6e_0Pdlj9dJDMjb9djFtO4GuMt1624XlQyMOf8td6TK4IzyHRhA-kCDGbNrMdyPyKbwFydwKbkXXbZeEp-lGEqXcWv-hjGEVzmfbNqfcgss6x05M7h_zz87OLyH'
 
 export const paintingSteps = [
   {
@@ -53,14 +56,52 @@ export const extras = [
   { icon: Grip, title: 'Drobne naprawy', text: 'Silikonowanie, szpachlowanie, drobne usterki.' },
 ]
 
-export const portfolioImages = [
-  { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80', title: 'Salon po malowaniu', size: 'aspect-[4/3]' },
-  { src: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80', title: 'Jasne wykończenie wnętrza', size: 'aspect-[3/4]' },
-  { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80', title: 'Detale podłogi', size: 'aspect-[4/5]' },
-  { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80', title: 'Nowoczesna zabudowa', size: 'aspect-[16/9]' },
-  { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=900&q=80', title: 'Czyste przejścia kolorów', size: 'aspect-[3/4]' },
-  { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80', title: 'Gotowe pomieszczenie', size: 'aspect-[4/3]' },
+export const portfolioProjects = [
+  {
+    id: 'r1',
+    title: 'Kompleksowe Wykończenie',
+    category: 'Malowanie i Zabudowy',
+    images: Array.from({ length: 12 }, (_, i) => `/realization/realization1/pic (${i + 1}).png`)
+  },
+  {
+    id: 'r2',
+    title: 'Nowoczesny Salon',
+    category: 'Gładzie i Malowanie',
+    images: Array.from({ length: 4 }, (_, i) => `/realization/realization2/pic (${i + 1}).png`)
+  },
+  {
+    id: 'r3',
+    title: 'Zabudowa Poddasza',
+    category: 'Zabudowy G-K',
+    images: Array.from({ length: 4 }, (_, i) => `/realization/realization3/pic (${i + 1}).png`)
+  },
+  {
+    id: 'r4',
+    title: 'Elegancka Sypialnia',
+    category: 'Malowanie Premium',
+    images: Array.from({ length: 4 }, (_, i) => `/realization/realization4/pic (${i + 1}).png`)
+  },
+  {
+    id: 'r5',
+    title: 'Renowacja Wnętrza',
+    category: 'Kompleksowe Wykończenie',
+    images: Array.from({ length: 4 }, (_, i) => `/realization/realization5/pic (${i + 1}).png`)
+  },
+  {
+    id: 'r6',
+    title: 'Odświeżenie Biura',
+    category: 'Malowanie',
+    images: Array.from({ length: 4 }, (_, i) => `/realization/realization6/pic (${i + 1}).png`)
+  }
 ]
+
+export const allPortfolioImages = portfolioProjects.flatMap(project => 
+  project.images.map(src => ({
+    src,
+    title: project.title,
+    category: project.category
+  }))
+)
 
 export const reviews = [
   { author: 'Anna K.', text: 'Profesjonalna ekipa, czysto i terminowo. Salon wygląda fantastycznie, farba idealnie nałożona!', rating: 5 },
