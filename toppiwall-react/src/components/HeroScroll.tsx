@@ -48,21 +48,22 @@ export default function HeroScroll() {
   if (lenisRef.current) {
    lenisRef.current.stop()
 
-   // Jeśli użytkownik przewinął bardzo agresywnie, dociągamy ekran natychmiast (bez animacji)
-   // idealnie do końca sekcji hero, żeby napisy końcowe wycentrowały się perfekcyjnie.
+   // Dociągamy do końca hero
    if (containerRef.current) {
     lenisRef.current.scrollTo(containerRef.current, { align: 'end', immediate: true })
    }
   }
 
-  // Dodatkowa, natywna blokada eventów kółka i dotyku dla pewności
+  // Blokada natywna kółka i dotyku
   const prevent = (e: Event) => e.preventDefault()
   window.addEventListener('wheel', prevent, { passive: false })
+  window.addEventListener('touchstart', prevent, { passive: false })
   window.addEventListener('touchmove', prevent, { passive: false })
 
-  // Zdejmujemy blokadę po upływie 1 sekundy
+  // Zdejmujemy blokadę po 1 sekundzie
   const timer = setTimeout(() => {
    window.removeEventListener('wheel', prevent)
+   window.removeEventListener('touchstart', prevent)
    window.removeEventListener('touchmove', prevent)
    if (lenisRef.current) lenisRef.current.start()
   }, 1000)
@@ -70,6 +71,7 @@ export default function HeroScroll() {
   return () => {
    clearTimeout(timer)
    window.removeEventListener('wheel', prevent)
+   window.removeEventListener('touchstart', prevent)
    window.removeEventListener('touchmove', prevent)
    if (lenisRef.current) lenisRef.current.start()
   }
@@ -212,12 +214,12 @@ export default function HeroScroll() {
 
     {/* Kontrolka przewijania (Scroll Cue) */}
     <motion.div style={{ opacity: opText }}
-     className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-     <span className="text-[9px] font-bold tracking-[4px] uppercase mb-3 text-white/60">SCROLL</span>
-     <div className="w-px h-14 relative overflow-hidden bg-white/15">
+     className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+     <span className="text-[11px] font-black tracking-[5px] uppercase mb-3 text-white/80">SCROLL</span>
+     <div className="w-[2px] h-20 relative overflow-hidden bg-white/20">
       <motion.div animate={{ y: ['-100%', '100%'] }}
-       transition={{ repeat: Infinity, duration: 1.4, ease: 'linear' }}
-       className="absolute w-full h-1/2 bg-gradient-to-b from-transparent via-white to-transparent" />
+       transition={{ repeat: Infinity, duration: 1.3, ease: 'linear' }}
+       className="absolute w-full h-1/2 bg-gradient-to-b from-transparent via-white/90 to-transparent" />
      </div>
     </motion.div>
    </div>

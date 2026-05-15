@@ -15,15 +15,21 @@ export default function Navbar() {
   const { scrollY, scrollYProgress } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [inHero, setInHero] = useState(true);
   const [activeIdx, setActiveIdx] = useState(0);
 
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const prev = scrollY.getPrevious() ?? 0;
+    // Ukrywamy przy scrollu w dół, ale nie gdy jesteśmy w hero
     if (latest > prev && latest > 150) setHidden(true);
     else setHidden(false);
     setScrolled(latest > 80);
+
+    // Wykrywamy czy jesteśmy w sekcji Hero (pierwsza sekcja = 100vh)
+    const heroHeight = window.innerHeight;
+    setInHero(latest < heroHeight * 0.85);
 
     const total = document.documentElement.scrollHeight - window.innerHeight || 1;
     const pct = latest / total;
@@ -36,11 +42,11 @@ export default function Navbar() {
       {/* ── TOP NAVBAR ── */}
       <motion.nav
         variants={{ visible: { y: 0 }, hidden: { y: '-100%' } }}
-        animate={hidden ? 'hidden' : 'visible'}
-        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+        animate={hidden || inHero ? 'hidden' : 'visible'}
+        transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1] }}
         className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ${
           scrolled
-            ? 'bg-white/92 backdrop-blur-xl shadow-sm border-b border-zinc-100 py-3'
+            ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-zinc-100 py-3'
             : 'bg-transparent py-5'
         }`}
       >
@@ -52,25 +58,25 @@ export default function Navbar() {
 
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 transition-transform group-hover:scale-110 duration-300">
+            <div className="relative w-10 h-10 transition-transform group-hover:scale-110 duration-300">
               <img src="/logo.svg" alt="ToppiWall" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className={`font-space font-bold text-lg tracking-tighter leading-none transition-colors duration-300 ${scrolled ? 'text-zinc-900' : 'text-white'}`}>
+              <span className={`font-space font-bold text-xl tracking-tighter leading-none transition-colors duration-300 ${scrolled ? 'text-zinc-900' : 'text-white'}`}>
                 ToppiWall
               </span>
-              <span className={`text-[9px] uppercase tracking-[0.2em] font-medium transition-colors duration-300 ${scrolled ? 'text-red-600' : 'text-zinc-300'}`}>
+              <span className={`text-[10px] uppercase tracking-[0.2em] font-semibold transition-colors duration-300 ${scrolled ? 'text-red-600' : 'text-zinc-300'}`}>
                 Leuven & Surroundings
               </span>
             </div>
           </a>
 
           {/* Desktop links */}
-          <nav className={`hidden md:flex items-center gap-7 text-sm font-semibold tracking-tight transition-colors duration-300 ${scrolled ? 'text-zinc-600' : 'text-zinc-100'}`}>
+          <nav className={`hidden md:flex items-center gap-8 text-[15px] font-bold tracking-wide transition-colors duration-300 ${scrolled ? 'text-zinc-700' : 'text-zinc-100'}`}>
             {NAV_SECTIONS.filter(s => s.id !== 'hero').map((item) => (
-              <a key={item.id} href={`#${item.id}`} className="hover:text-red-600 transition-colors relative group">
+              <a key={item.id} href={`#${item.id}`} className="hover:text-red-600 transition-colors relative group py-1">
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full" />
+                <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-red-600 transition-all group-hover:w-full" />
               </a>
             ))}
           </nav>
@@ -81,13 +87,13 @@ export default function Navbar() {
               className={`p-2.5 rounded-full border transition-all ${scrolled ? 'border-zinc-200 text-green-600 hover:bg-green-50' : 'border-white/20 text-white hover:bg-white/10'}`}
               aria-label="WhatsApp"
             >
-              <MessageCircle size={19} />
+              <MessageCircle size={20} />
             </a>
             <a
               href={`tel:${phoneNumber}`}
-              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 font-bold text-sm transition-all active:scale-95 shadow-lg shadow-red-600/25 rounded-sm"
+              className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 font-bold text-[15px] transition-all active:scale-95 shadow-lg shadow-red-600/25 rounded-sm"
             >
-              <Phone size={15} />
+              <Phone size={16} />
               BEZPŁATNA WYCENA
             </a>
           </div>
@@ -161,11 +167,11 @@ export default function Navbar() {
 
       {/* ── MOBILE STICKY CONTACT BAR ── */}
       <motion.div
+        animate={{ y: inHero ? 80 : 0, opacity: inHero ? 0 : 1 }}
         initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.0, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="fixed bottom-0 left-0 right-0 z-[200] flex lg:hidden mobile-sticky-bar"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)', pointerEvents: inHero ? 'none' : 'auto' }}
       >
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/60 to-transparent" />
         <a

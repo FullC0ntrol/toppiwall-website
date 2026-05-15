@@ -78,7 +78,7 @@ function ProcessSection() {
             <motion.div 
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
+              viewport={{ once: false, amount: 0.5 }}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
               className="h-full bg-red-600 origin-left" 
             />
@@ -89,7 +89,7 @@ function ProcessSection() {
             <motion.div 
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, margin: '-50px' }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
               className="w-full bg-red-600 origin-top" 
             />
@@ -99,10 +99,10 @@ function ProcessSection() {
             {STEPS.map((step) => (
               <motion.div 
                 key={step.num} 
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: step.delay, type: 'spring' }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{ duration: 0.65, delay: step.delay, type: 'spring', stiffness: 80, damping: 15 }}
                 className="flex flex-row sm:flex-col items-center sm:items-center gap-5 sm:gap-6 group"
               >
                 <div className="relative shrink-0">
@@ -110,7 +110,7 @@ function ProcessSection() {
                   <motion.div 
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1.5, opacity: 0 }}
-                    viewport={{ once: true, margin: '-50px' }}
+                    viewport={{ once: false, amount: 0.4 }}
                     transition={{ duration: 1.2, delay: step.delay + 0.2 }}
                     className="absolute inset-0 bg-red-500 rounded-full"
                   />
